@@ -5,8 +5,12 @@ class DocumentMetadata(BaseModel):
     filename: str
     #description: str #may be unneccesary
 
-class ChunkMetadata:
+class ChunkMetadata(BaseModel):
     chunk_id: str
     filename: str
     page_nmr: int
     polygon: list[int]
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
