@@ -6,15 +6,19 @@ import os
 from supabase import Client, create_client, AuthApiError
 from schemas import LoginRequest
 from fastapi.responses import JSONResponse
+from auth import auth_middleware
 
 load_dotenv()
+
 supabase_url = os.getenv('SUPABASE_URL')
 supabase_api_key = os.getenv('SUPABASE_API_KEY')
+supabase_jwt_secret = os.getenv('SUPBASE_JWT_SECRET')
 
 supabase: Client = create_client(supabase_url, supabase_api_key)
 
-
 app = FastAPI()
+
+app.middleware('http')(auth_middleware)
 
 @app.get('/')
 def index():
